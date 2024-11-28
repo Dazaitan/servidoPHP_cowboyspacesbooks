@@ -12,6 +12,7 @@ if ($metodo=="POST"){
         $descripcion=$data['descripcion'];
         $formato=$data['Formato'];
         $portada=$data['portada'];
+        $estado=$data['estado'];
 
         $stmt = $conn->prepare("SELECT isbn FROM libro WHERE isbn = ?");
         $stmt->bind_param("i", $isbn);
@@ -20,13 +21,13 @@ if ($metodo=="POST"){
         if($result->num_rows > 0){
             echo json_encode(['status' => 'error', 'message' => 'ISBN ya creado.']);
         } else{
-            $stmt = $conn->prepare("INSERT INTO libro (isbn, titulo, autor, editorial, nPaginas, formato, descripcion,portada) VALUES (?,?,?,?,?,?,?,?)");
-            $stmt->bind_param("isssssss",$isbn,$titulo,$autor,$editor,$numPaginas,$formato,$descripcion,$portada);
+            $stmt = $conn->prepare("INSERT INTO libro (isbn, titulo, autor, editorial, nPaginas, formato, descripcion,portada,estado) VALUES (?,?,?,?,?,?,?,?,?)");
+            $stmt->bind_param("issssssss",$isbn,$titulo,$autor,$editor,$numPaginas,$formato,$descripcion,$portada,$estado);
             
             if($stmt->execute()){
-                echo json_encode(['status' => 'success', 'message' => 'Usuario creado exitosamente.']);
+                echo json_encode(['status' => 'success', 'message' => 'Libro insertado correctamente.']);
             } else{
-                echo json_encode(['status' => 'error', 'message' => 'Error al crear el usuario.']);
+                echo json_encode(['status' => 'error', 'message' => 'Error al insertar libro.']);
             }
         }
     } else{
