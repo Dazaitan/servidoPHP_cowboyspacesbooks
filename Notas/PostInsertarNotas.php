@@ -8,7 +8,7 @@ if ($metodo == 'POST') {
 
     $isbn = $input['isbn'];
     $tipoNota = $input['tipoNota'];
-    $cuerpo = $input['cuerpo'];
+    $cuerpo = $input['descripcion'];
     $pagInicio = $input['pagInicio'];
     $pagFinal = $input['pagFinal'];
 
